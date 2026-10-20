@@ -1,0 +1,7 @@
+Guarda aquí los tres vídeos exportados en formato MP4, con una duración final exacta de 30 segundos cada uno:
+
+- pitch.mp4
+- proyecto.mp4
+- habilidades.mp4
+
+Los guiones están en ../guiones_videos.txt. La página index.html ya utiliza estas rutas relativas. Los vídeos no estaban incluidos entre los archivos facilitados, por lo que esta carpeta contiene únicamente estas instrucciones hasta que se añadan los MP4.

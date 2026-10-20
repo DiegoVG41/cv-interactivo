@@ -1,0 +1,15 @@
+GUIONES PARA LAS TRES PÍLDORAS DE VÍDEO
+
+Los textos están pensados para una locución natural de aproximadamente 30 segundos. Al grabar y editar, ajusta las pausas y la duración final para exportar cada MP4 con exactamente 00:30. No se han generado vídeos: deben grabarse/exportarse con Google Vids y guardarse en la carpeta videos/.
+
+1. ELEVATOR PITCH — guardar como videos/pitch.mp4
+
+Hola, soy Diego Velázquez-Gaztelu Ruiz y estudio el doble grado en Digital Business con Data Science en ESIC University. Mi experiencia académica en España y Estados Unidos me ha permitido conocer entornos diferentes y adaptarme. Me motivan el aprendizaje basado en proyectos, el trabajo en equipo y la tecnología aplicada a los negocios. Busco una oportunidad de prácticas o empleo donde seguir aprendiendo y aportar compromiso, curiosidad y ganas de colaborar.
+
+2. PROYECTO DESTACADO — guardar como videos/proyecto.mp4
+
+Una iniciativa que recuerdo especialmente fue organizar y ejecutar, junto al Consejo Estudiantil del Liceo Europeo, una carrera de obstáculos para el Día de la Tierra. Participé en una actividad colaborativa con un objetivo concreto, desde su preparación hasta su realización. Mi currículum no recoge herramientas técnicas utilizadas, así que prefiero no atribuir tecnologías. La experiencia reforzó mi interés por aprender haciendo y trabajar en equipo.
+
+3. HABILIDADES Y MOTIVACIÓN EN IA — guardar como videos/habilidades.mp4
+
+Estudiar en España y realizar un intercambio en Texas me ha ayudado a adaptarme a contextos distintos. También he aprendido a colaborar como jugador de fútbol americano, árbitro y miembro del Consejo Estudiantil. Hablo español nativo e inglés B2, acreditado por Cambridge. Me interesa la inteligencia artificial y cómo puede aportar soluciones a los negocios. Busco un equipo donde contribuir con responsabilidad, curiosidad y disposición para seguir aprendiendo.
