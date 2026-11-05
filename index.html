@@ -225,6 +225,47 @@
     }
     .availability .mark { color: #a66b1b; font-size: 1.4rem; line-height: 1.2; }
     .availability p { margin: 3px 0 0; color: #526174; }
+    .current-role {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      gap: 22px;
+      padding: 26px;
+      border: 1px solid #dce5eb;
+      border-left: 5px solid #00a89d;
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .moeve-logo {
+      display: grid;
+      min-width: 142px;
+      min-height: 82px;
+      padding: 15px;
+      place-items: center;
+      border-radius: 13px;
+      background: #f2f7f9;
+    }
+    .moeve-logo img {
+      display: block;
+      width: 120px;
+      height: auto;
+    }
+    .current-role h3 { margin: 0; font-size: 1.2rem; }
+    .current-role .meta { margin: 4px 0 12px; }
+    .current-role p { margin: 0; color: #526174; }
+    .role-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
+    .role-facts span {
+      padding: 6px 10px;
+      border: 1px solid #dce5eb;
+      border-radius: 999px;
+      background: #f7fafb;
+      color: #334b61;
+      font-size: .84rem;
+      font-weight: 650;
+    }
+    .role-duties { margin: 12px 0 0; padding-left: 19px; color: #435569; }
+    .role-duties li + li { margin-top: 5px; }
     .chat-card { padding: 0; overflow: hidden; }
     .chat-intro { padding: 22px 24px; border-bottom: 1px solid var(--line); }
     .chat-intro p { margin: 7px 0 0; color: var(--muted); }
@@ -303,6 +344,8 @@
       main { padding-top: 32px; }
       .section { margin-top: 44px; }
       .two-col, .award-list { grid-template-columns: 1fr; }
+      .current-role { grid-template-columns: 1fr; padding: 18px; }
+      .moeve-logo { min-width: 120px; min-height: 60px; justify-self: start; }
       .card { padding: 18px; }
       .key-settings, .chat-intro { padding-inline: 17px; }
       .key-row { flex-wrap: wrap; }
@@ -333,6 +376,7 @@
           <a href="#perfil">Perfil</a>
           <a href="#experiencia">Experiencia</a>
           <a href="#formacion">Formación</a>
+          <a href="#disponibilidad">MOEVE</a>
           <a href="#videos">Vídeos</a>
           <a href="#assistant">Asistente IA</a>
         </nav>
@@ -360,6 +404,11 @@
     <section class="section" id="experiencia">
       <div class="section-heading"><p>02 · Trayectoria</p><h2>Experiencia</h2></div>
       <div class="grid two-col">
+        <article class="card">
+          <h3>Prácticas en desarrollo de negocio · Marine Fuel Solutions</h3>
+          <p class="meta">MOEVE Trading, S.A.U. · Madrid · octubre de 2026 – actualidad</p>
+          <p>Colaboración en iniciativas de crecimiento, análisis de mercado y transformación comercial y digital.</p>
+        </article>
         <article class="card">
           <h3>Árbitro nacional de fútbol americano</h3>
           <p class="meta">Junio de 2018 – actualidad</p>
@@ -445,11 +494,29 @@
     </section>
 
     <section class="section" id="disponibilidad">
-      <div class="section-heading"><p>07 · Próximo paso</p><h2>Disponibilidad</h2></div>
-      <div class="availability">
-        <span class="mark" aria-hidden="true">↗</span>
-        <div><strong>Interés en oportunidades de prácticas y empleo</strong><p>En Digital Business, Data Science y soluciones basadas en inteligencia artificial. El CV no concreta modalidad, jornada ni fecha de incorporación.</p></div>
-      </div>
+      <div class="section-heading"><p>07 · Situación actual</p><h2>Mi experiencia en MOEVE</h2></div>
+      <article class="current-role">
+        <div class="moeve-logo">
+          <img src="https://www.moeveglobal.com/recursos_alt/images/modules/Menu/logo.svg" alt="Logotipo oficial de MOEVE" width="110" height="21">
+        </div>
+        <div>
+          <h3>Prácticas en desarrollo de negocio · Marine Fuel Solutions (MFS)</h3>
+          <p class="meta">MOEVE Trading, S.A.U. · Madrid · inicio: 27 de octubre de 2026</p>
+          <div class="role-facts" aria-label="Detalles del puesto">
+            <span>Contrato de prácticas · 6 meses</span>
+            <span>Posibilidad de ampliación</span>
+            <span>Presencial · Madrid</span>
+            <span>Horario: 8:00–15:00</span>
+          </div>
+          <p>Formo parte del equipo que impulsa el crecimiento de Marine Fuel Solutions, contribuyendo a iniciativas de desarrollo de negocio, análisis y transformación comercial.</p>
+          <ul class="role-duties">
+            <li>Analizar mercados, tendencias y oportunidades para apoyar estudios estratégicos y detectar nuevas vías de crecimiento.</li>
+            <li>Colaborar en proyectos de transformación, mejora continua y digitalización, como Customer Centricity, Commercial Integration y Positive Motion, junto a equipos multidisciplinares.</li>
+            <li>Dar soporte a iniciativas comerciales: preparación de ofertas, seguimiento de oportunidades y coordinación de procesos.</li>
+            <li>Conocer la cadena de valor de los combustibles marinos, desde las operaciones y la logística hasta los riesgos y la sostenibilidad.</li>
+          </ul>
+        </div>
+      </article>
     </section>
 
     <section class="section" id="videos">
@@ -533,6 +600,8 @@ FORMACIÓN
 - Santa Joaquina de Vedruna FEC: Educación Primaria y Secundaria.
 
 EXPERIENCIA LABORAL
+- Prácticas en desarrollo de negocio en Marine Fuel Solutions (MFS), MOEVE Trading, S.A.U., Madrid; inicio: 27 de octubre de 2026. Contrato de prácticas de seis meses, con posibilidad de ampliación. Modalidad presencial, horario de 8:00 a 15:00.
+- Funciones según la oferta: colaboración en iniciativas de crecimiento, desarrollo de negocio, digitalización y transformación comercial; análisis de mercados, tendencias y oportunidades; elaboración de estudios estratégicos y análisis de datos; apoyo a proyectos de transformación y mejora continua; colaboración con equipos multidisciplinares en herramientas digitales y plataformas comerciales; conocimiento de la cadena de valor de combustibles marinos (áreas comerciales, operaciones, logística, pricing, riesgos, crédito y sostenibilidad); y apoyo al equipo comercial en ofertas, oportunidades y coordinación de procesos.
 - Árbitro nacional de fútbol americano, junio de 2018–actualidad.
 - Administrador de facturas en una empresa constructora, marzo–octubre de 2023. No se indican herramientas ni funciones adicionales.
 
@@ -562,7 +631,7 @@ IDIOMAS Y RECONOCIMIENTOS
 - Premio al Rendimiento Académico: High Honors en el Liceo Europeo, mayo de 2021.
 
 DISPONIBILIDAD
-Interés en incorporarse mediante prácticas académicas o puestos de trabajo en Digital Business, Data Science y soluciones basadas en Inteligencia Artificial. No constan jornada, modalidad, ubicación ni fecha de incorporación.`;
+Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de negocio en Marine Fuel Solutions (MFS), en Madrid. Inicio: 27 de octubre de 2026. Contrato de prácticas de seis meses con posibilidad de ampliación; presencial, de 8:00 a 15:00.`;
 
     const chatMessages = document.getElementById("chatMessages");
     const userInput = document.getElementById("userInput");
