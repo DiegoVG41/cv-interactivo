@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10243a">
+  <meta name="theme-color" content="#edf6fa">
   <meta name="description" content="Currículum interactivo de Diego Velázquez-Gaztelu Ruiz: Digital Business, Data Science, experiencia y certificaciones.">
-  <title>Diego Velázquez-Gaztelu Ruiz | CV interactivo</title>
+  <title>Diego Velázquez-Gaztelu Ruiz</title>
   <style>
     :root {
       color-scheme: light;
-      --ink: #17283b;
-      --muted: #627286;
-      --paper: #f4f6f8;
+      --ink: #162a3a;
+      --muted: #516578;
+      --paper: #f6f9fc;
       --surface: #fff;
-      --navy: #10243a;
-      --navy-soft: #18344f;
-      --accent: #e5a84b;
-      --line: #dfe5eb;
+      --navy: #12324b;
+      --navy-soft: #1c4a66;
+      --accent: #d7962e;
+      --line: #dbe5ed;
       --success: #176b4d;
       --danger: #ad3434;
       --radius: 18px;
-      --shadow: 0 14px 36px rgba(16, 36, 58, .08);
+      --shadow: 0 14px 36px rgba(18, 50, 75, .08);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -30,6 +30,13 @@
       background: var(--paper);
       color: var(--ink);
       font: 16px/1.65 "Segoe UI", Arial, sans-serif;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      body {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='8' ry='13' transform='rotate(45 16 16)' fill='%23d7962e' stroke='%2312324b' stroke-width='2'/%3E%3Cpath d='m11 10 10 12m-7-15-1 4m5 7-1 4' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 16 16, auto;
+      }
+      a, button { cursor: pointer; }
+      input, textarea, select, video, audio { cursor: auto; }
     }
     a { color: inherit; }
     a:focus-visible, button:focus-visible, input:focus-visible {
@@ -42,9 +49,9 @@
       overflow: hidden;
       padding: 36px 0 62px;
       background:
-        radial-gradient(ellipse at 85% 5%, rgba(229, 168, 75, .18), transparent 30rem),
-        var(--navy);
-      color: #fff;
+        radial-gradient(ellipse at 85% 5%, rgba(215, 150, 46, .14), transparent 30rem),
+        linear-gradient(135deg, #f3f9fc, #e5f1f7);
+      color: var(--ink);
     }
     .hero::after {
       position: absolute;
@@ -52,7 +59,7 @@
       bottom: -250px;
       width: 500px;
       height: 500px;
-      border: 1px solid rgba(255,255,255,.08);
+      border: 1px solid rgba(18,50,75,.08);
       border-radius: 50%;
       content: "";
       pointer-events: none;
@@ -65,22 +72,29 @@
       align-items: center;
       gap: 20px;
       margin-bottom: 70px;
-      color: #d9e4ed;
+      color: #43596c;
       font-size: .85rem;
       letter-spacing: .08em;
       text-transform: uppercase;
     }
-    .topline .brand { font-weight: 700; color: #fff; }
+    .topline .brand { font-weight: 750; color: var(--navy); }
     .topline nav { display: flex; flex-wrap: wrap; gap: 22px; }
     .topline a { text-decoration: none; }
-    .topline a:hover { color: var(--accent); }
+    .topline a:hover { color: #8d5b13; }
+    .topline nav a[aria-current="location"] {
+      color: var(--navy);
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 6px;
+    }
     .hero-content { position: relative; z-index: 1; max-width: 790px; }
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 9px;
       margin: 0 0 18px;
-      color: #f1c578;
+      color: #895b18;
       font-size: .84rem;
       font-weight: 700;
       letter-spacing: .12em;
@@ -97,7 +111,7 @@
     .headline {
       max-width: 680px;
       margin: 22px 0 0;
-      color: #d7e1eb;
+      color: #43596c;
       font-size: clamp(1.08rem, 2.3vw, 1.38rem);
       line-height: 1.55;
     }
@@ -108,27 +122,41 @@
       justify-content: center;
       min-height: 44px;
       padding: 9px 16px;
-      border: 1px solid rgba(255,255,255,.24);
+      border: 1px solid rgba(18,50,75,.24);
       border-radius: 999px;
-      color: #fff;
+      color: var(--navy);
       font-size: .92rem;
       font-weight: 650;
       text-decoration: none;
       transition: background .2s, border-color .2s, transform .2s;
     }
-    .button-link:hover { transform: translateY(-2px); border-color: var(--accent); background: rgba(255,255,255,.08); }
-    .button-link.primary { border-color: var(--accent); background: var(--accent); color: var(--navy); }
+    .button-link:hover { transform: translateY(-2px); border-color: var(--accent); background: rgba(255,255,255,.7); }
+    .button-link.primary { border-color: var(--accent); background: #f2c46f; color: var(--navy); }
     main { padding: 46px 0 76px; }
     .section { margin-top: 58px; }
     .section:first-child { margin-top: 0; }
     .section-heading { margin-bottom: 22px; }
     .section-heading p {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       margin: 0 0 5px;
-      color: #a66b1b;
+      color: #80530f;
       font-size: .77rem;
       font-weight: 750;
       letter-spacing: .12em;
       text-transform: uppercase;
+    }
+    .section-icon {
+      display: inline-grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border: 1px solid #e8d5b4;
+      border-radius: 9px;
+      background: #fffaf1;
+      font-size: 1rem;
+      letter-spacing: 0;
     }
     h2 { margin: 0; font-size: clamp(1.65rem, 3vw, 2.15rem); line-height: 1.2; letter-spacing: -.025em; }
     .intro {
@@ -138,7 +166,20 @@
       font-size: 1.08rem;
     }
     .grid { display: grid; gap: 18px; }
-    .video-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pitch-feature {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(260px, .75fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .pitch-feature .video-shell { min-height: 320px; }
+    .pitch-feature .video-shell video { max-height: 480px; aspect-ratio: 16 / 9; }
+    .pitch-copy { display: flex; flex-direction: column; justify-content: center; }
+    .pitch-copy h3 { margin: 0; font-size: clamp(1.35rem, 3vw, 1.8rem); line-height: 1.25; }
+    .pitch-copy p { color: var(--muted); }
+    .pitch-copy .button-link { align-self: flex-start; border-color: var(--navy); color: var(--navy); }
+    .pitch-copy .button-link:hover { background: #edf5f9; }
     .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .card {
       min-width: 0;
@@ -147,6 +188,10 @@
       border-radius: var(--radius);
       background: var(--surface);
       box-shadow: var(--shadow);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .card { transition: transform .18s ease, box-shadow .18s ease; }
+      .card:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(18, 50, 75, .12); }
     }
     .video-card { display: flex; flex-direction: column; gap: 13px; }
     .video-card h3 { margin: 0; font-size: 1.1rem; }
@@ -158,17 +203,17 @@
       overflow: hidden;
       place-items: center;
       border-radius: 12px;
-      background: var(--navy);
-      color: #e2eaf1;
+      background: #e9f1f6;
+      color: var(--ink);
       text-align: center;
     }
-    .video-shell video { display: none; width: 100%; max-height: 290px; background: #081522; }
+    .video-shell video { display: none; width: 100%; max-height: 290px; background: #10243a; }
     .video-shell.is-ready video { display: block; }
     .video-fallback { padding: 22px; }
     .video-shell.is-ready .video-fallback { display: none; }
-    .video-fallback .play-icon { display: block; margin-bottom: 8px; color: var(--accent); font-size: 1.8rem; }
+    .video-fallback .play-icon { display: block; margin-bottom: 8px; color: #8d5b13; font-size: 1.8rem; }
     .video-fallback strong { display: block; margin-bottom: 5px; }
-    .video-fallback span { color: #c0ceda; font-size: .82rem; }
+    .video-fallback span { color: #43596c; font-size: .82rem; }
     .timeline { display: grid; gap: 15px; }
     .timeline-item { position: relative; padding-left: 23px; }
     .timeline-item::before {
@@ -330,10 +375,33 @@
     .typing { align-self: flex-start; color: var(--muted); font-size: .9rem; }
     footer { padding: 24px 0 34px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
     footer .wrap { display: flex; justify-content: space-between; gap: 16px; }
+    .scroll-context {
+      position: fixed;
+      z-index: 5;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      max-width: calc(100vw - 36px);
+      padding: 9px 13px;
+      border: 1px solid #cfdae3;
+      border-radius: 999px;
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 6px 22px rgba(18,50,75,.12);
+      color: var(--navy);
+      font-size: .82rem;
+      font-weight: 700;
+      pointer-events: none;
+    }
+    .scroll-context[hidden] { display: none; }
+    .scroll-context-icon { font-size: 1rem; }
     @media (max-width: 760px) {
       .topline { align-items: flex-start; margin-bottom: 52px; }
       .topline nav { justify-content: flex-end; gap: 9px 14px; }
-      .video-grid { grid-template-columns: 1fr; }
+      .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pitch-feature { grid-template-columns: 1fr; }
+      .pitch-feature .video-shell { min-height: 220px; }
       .video-shell { min-height: 180px; }
     }
     @media (max-width: 560px) {
@@ -348,19 +416,23 @@
       .moeve-logo { min-width: 120px; min-height: 60px; justify-self: start; }
       .card { padding: 18px; }
       .key-settings, .chat-intro { padding-inline: 17px; }
+      .video-grid { grid-template-columns: 1fr; }
       .key-row { flex-wrap: wrap; }
       .key-row input { flex-basis: 100%; }
       .chat-messages { padding-inline: 17px; }
       .chat-form { padding-inline: 17px; }
       .chat-form .button { padding-inline: 12px; }
       footer .wrap { display: block; }
+      .scroll-context { right: 12px; bottom: 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      .card:hover, .button-link:hover { transform: none; }
     }
     @media print {
-      .hero { padding: 24px 0; background: var(--navy) !important; print-color-adjust: exact; }
+      .hero { padding: 24px 0; background: #e5f1f7 !important; print-color-adjust: exact; }
       .topline nav, .hero-links, #videos, #assistant, footer { display: none !important; }
+      .scroll-context { display: none !important; }
       main { padding: 20px 0; }
       .section { margin-top: 28px; break-inside: avoid; }
       .card { box-shadow: none; }
@@ -371,20 +443,20 @@
   <header class="hero">
     <div class="wrap">
       <div class="topline">
-        <a class="brand" href="#inicio" aria-label="Ir al inicio">CV INTERACTIVO</a>
+        <a class="brand" href="#inicio" aria-label="Ir al inicio">DIEGO VELÁZQUEZ-GAZTELU RUIZ</a>
         <nav aria-label="Navegación principal">
+          <a href="#videos">Elevator pitch</a>
           <a href="#perfil">Perfil</a>
           <a href="#experiencia">Experiencia</a>
           <a href="#formacion">Formación</a>
           <a href="#disponibilidad">MOEVE</a>
-          <a href="#videos">Vídeos</a>
           <a href="#assistant">Asistente IA</a>
         </nav>
       </div>
       <div class="hero-content" id="inicio">
         <p class="eyebrow">Digital Business · Data Science</p>
         <h1>Diego Velázquez-Gaztelu Ruiz</h1>
-        <p class="headline">Estudiante de doble grado en Digital Business y Data Science en ESIC University, interesado en el aprendizaje basado en proyectos, la tecnología y los sistemas de negocio.</p>
+        <p class="headline">Estudiante de doble grado en Digital Business con Data Science en ESIC University. Aprendo haciendo, disfruto trabajando en equipo y me interesa conectar negocio y tecnología.</p>
         <div class="hero-links" aria-label="Contacto y perfiles">
           <a class="button-link primary" href="mailto:dvelazquezgaztelu@gmail.com">Escríbeme</a>
           <a class="button-link" href="tel:+34606113113">+34 606 113 113</a>
@@ -396,13 +468,51 @@
   </header>
 
   <main class="wrap">
+    <section class="section" id="videos">
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🎬</span>01 · Presentación</p><h2>Empieza aquí: Elevator Pitch</h2></div>
+      <div class="pitch-feature">
+        <article class="card video-card">
+          <h3>Mi presentación</h3>
+          <div class="video-shell" data-video="videos/pitch.mp4">
+            <video controls preload="metadata" playsinline aria-label="Vídeo Elevator Pitch de Diego Velázquez-Gaztelu Ruiz"></video>
+            <div class="video-fallback"><span class="play-icon" aria-hidden="true">▶</span><strong>El vídeo aún no está publicado</strong><span class="video-status">Añade videos/pitch.mp4 al repositorio para reproducirlo aquí.</span></div>
+          </div>
+          <p>Una primera toma de contacto con mi perfil, mis estudios y lo que me motiva.</p>
+        </article>
+        <div class="card pitch-copy">
+          <p class="eyebrow">Negocio · Datos · Equipo</p>
+          <h3>Aprender haciendo. Crecer en equipo.</h3>
+          <p>Me gusta transformar las ideas en proyectos y descubrir cómo la tecnología puede ayudar a los negocios.</p>
+          <a class="button-link" href="#perfil">Conoce mi trayectoria ↓</a>
+        </div>
+      </div>
+      <div class="grid video-grid" style="margin-top:18px">
+        <article class="card video-card">
+          <h3>Proyecto destacado</h3>
+          <div class="video-shell" data-video="videos/proyecto.mp4">
+            <video controls preload="metadata" playsinline aria-label="Vídeo sobre el proyecto destacado"></video>
+            <div class="video-fallback"><span class="play-icon" aria-hidden="true">▶</span><strong>El vídeo aún no está publicado</strong><span class="video-status">Añade videos/proyecto.mp4 al repositorio para reproducirlo aquí.</span></div>
+          </div>
+          <p>Organización de la carrera de obstáculos del Día de la Tierra.</p>
+        </article>
+        <article class="card video-card">
+          <h3>Habilidades y motivación</h3>
+          <div class="video-shell" data-video="videos/habilidades.mp4">
+            <video controls preload="metadata" playsinline aria-label="Vídeo sobre habilidades y motivación"></video>
+            <div class="video-fallback"><span class="play-icon" aria-hidden="true">▶</span><strong>El vídeo aún no está publicado</strong><span class="video-status">Añade videos/habilidades.mp4 al repositorio para reproducirlo aquí.</span></div>
+          </div>
+          <p>Trabajo en equipo, experiencia internacional e interés por la IA.</p>
+        </article>
+      </div>
+    </section>
+
     <section class="section" id="perfil">
-      <div class="section-heading"><p>01 · Perfil</p><h2>Sobre mí</h2></div>
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">👋</span>02 · Perfil</p><h2>Sobre mí</h2></div>
       <p class="intro">Actualmente curso un doble grado en Digital Business con Data Science en ESIC University. Mi experiencia académica en España y Estados Unidos —incluido un intercambio en Texas— me ha permitido conocer distintos entornos. Disfruto aprendiendo mediante proyectos y trabajando en equipo, con especial interés en los sistemas de negocio.</p>
     </section>
 
     <section class="section" id="experiencia">
-      <div class="section-heading"><p>02 · Trayectoria</p><h2>Experiencia</h2></div>
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">💼</span>03 · Trayectoria</p><h2>Experiencia</h2></div>
       <div class="grid two-col">
         <article class="card">
           <h3>Prácticas en desarrollo de negocio · Marine Fuel Solutions</h3>
@@ -423,7 +533,7 @@
     </section>
 
     <section class="section" id="formacion">
-      <div class="section-heading"><p>03 · Estudios</p><h2>Formación académica</h2></div>
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🎓</span>04 · Estudios</p><h2>Formación académica</h2></div>
       <div class="card timeline">
         <article class="timeline-item"><h3>Doble grado en Digital Business con Data Science</h3><p class="meta">ESIC University · septiembre de 2022 – actualidad</p></article>
         <article class="timeline-item"><h3>Formación, 200 horas</h3><p class="meta">Centro Aero-Formación NELSO · junio – septiembre de 2022</p></article>
@@ -434,7 +544,7 @@
     </section>
 
     <section class="section" id="proyectos">
-      <div class="section-heading"><p>04 · Iniciativa</p><h2>Proyectos y liderazgo</h2></div>
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🏈</span>05 · Iniciativa</p><h2>Proyectos y liderazgo</h2></div>
       <div class="grid two-col">
         <article class="card">
           <h3>Consejo Estudiantil · carrera de obstáculos</h3>
@@ -450,7 +560,7 @@
     </section>
 
     <section class="section" id="habilidades">
-      <div class="section-heading"><p>05 · Herramientas</p><h2>Habilidades y certificaciones</h2></div>
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">📊</span>06 · Herramientas</p><h2>Habilidades y certificaciones</h2></div>
       <div class="grid two-col">
         <article class="card">
           <h3>Datos y productividad</h3>
@@ -475,7 +585,7 @@
     </section>
 
     <section class="section" id="idiomas">
-      <div class="section-heading"><p>06 · Comunicación</p><h2>Idiomas y reconocimientos</h2></div>
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🌍</span>07 · Comunicación</p><h2>Idiomas y reconocimientos</h2></div>
       <div class="grid two-col">
         <article class="card">
           <h3>Idiomas</h3>
@@ -494,7 +604,7 @@
     </section>
 
     <section class="section" id="disponibilidad">
-      <div class="section-heading"><p>07 · Situación actual</p><h2>Mi experiencia en MOEVE</h2></div>
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">⚓</span>08 · Situación actual</p><h2>Mi experiencia en MOEVE</h2></div>
       <article class="current-role">
         <div class="moeve-logo">
           <img src="https://www.moeveglobal.com/recursos_alt/images/modules/Menu/logo.svg" alt="Logotipo oficial de MOEVE" width="110" height="21">
@@ -519,39 +629,8 @@
       </article>
     </section>
 
-    <section class="section" id="videos">
-      <div class="section-heading"><p>08 · Presentación</p><h2>Píldoras de vídeo</h2></div>
-      <p class="intro" style="font-size:.96rem;margin-bottom:18px">Añade cada vídeo MP4 a la carpeta <code>videos/</code> con el nombre indicado. En esta carpeta también se incluyen guiones de unos 30 segundos para grabarlos.</p>
-      <div class="grid video-grid">
-        <article class="card video-card">
-          <h3>01 · Elevator pitch</h3>
-          <div class="video-shell" data-video="videos/pitch.mp4">
-            <video controls preload="metadata" playsinline aria-label="Vídeo de presentación personal"></video>
-            <div class="video-fallback"><span class="play-icon" aria-hidden="true">▶</span><strong>Vídeo pendiente de añadir</strong><span>videos/pitch.mp4</span></div>
-          </div>
-          <p>Presentación, estudios y propuesta de valor.</p>
-        </article>
-        <article class="card video-card">
-          <h3>02 · Proyecto destacado</h3>
-          <div class="video-shell" data-video="videos/proyecto.mp4">
-            <video controls preload="metadata" playsinline aria-label="Vídeo de proyecto destacado"></video>
-            <div class="video-fallback"><span class="play-icon" aria-hidden="true">▶</span><strong>Vídeo pendiente de añadir</strong><span>videos/proyecto.mp4</span></div>
-          </div>
-          <p>Organización de la carrera de obstáculos del Día de la Tierra.</p>
-        </article>
-        <article class="card video-card">
-          <h3>03 · Habilidades y motivación</h3>
-          <div class="video-shell" data-video="videos/habilidades.mp4">
-            <video controls preload="metadata" playsinline aria-label="Vídeo sobre habilidades y motivación"></video>
-            <div class="video-fallback"><span class="play-icon" aria-hidden="true">▶</span><strong>Vídeo pendiente de añadir</strong><span>videos/habilidades.mp4</span></div>
-          </div>
-          <p>Trabajo en equipo, experiencia internacional e interés por la IA.</p>
-        </article>
-      </div>
-    </section>
-
     <section class="section" id="assistant">
-      <div class="section-heading"><p>09 · Conversación</p><h2>Asistente virtual</h2></div>
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🤖</span>09 · Conversación</p><h2>Asistente virtual</h2></div>
       <div class="card chat-card">
         <div class="chat-intro"><h3>Pregunta sobre mi perfil</h3><p>Respuestas basadas únicamente en la información de este currículum.</p></div>
         <div class="key-settings">
@@ -575,6 +654,11 @@
       </div>
     </section>
   </main>
+
+  <div class="scroll-context" id="scrollContext" hidden role="status" aria-live="polite" aria-atomic="true">
+    <span class="scroll-context-icon" id="scrollContextIcon" aria-hidden="true"></span>
+    <span>Estás viendo: <span id="scrollContextLabel"></span></span>
+  </div>
 
   <footer><div class="wrap"><span>Diego Velázquez-Gaztelu Ruiz</span><span>CV interactivo · 2026</span></div></footer>
 
@@ -699,8 +783,40 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
       const video = shell.querySelector("video");
       video.src = shell.dataset.video;
       video.addEventListener("loadeddata", () => shell.classList.add("is-ready"), { once: true });
-      video.addEventListener("error", () => shell.classList.remove("is-ready"));
+      video.addEventListener("error", () => {
+        shell.classList.remove("is-ready");
+        const status = shell.querySelector(".video-status");
+        if (status) status.textContent = `No se pudo cargar ${shell.dataset.video}. Comprueba que está publicado en el repositorio.`;
+      });
     });
+
+    const scrollContext = document.getElementById("scrollContext");
+    const scrollContextIcon = document.getElementById("scrollContextIcon");
+    const scrollContextLabel = document.getElementById("scrollContextLabel");
+    const sectionLinks = [...document.querySelectorAll('.topline nav a[href^="#"]')];
+
+    if ("IntersectionObserver" in window && scrollContext) {
+      const sectionObserver = new IntersectionObserver((entries) => {
+        const visibleSection = entries.find((entry) => entry.isIntersecting)?.target;
+        if (!visibleSection) return;
+
+        const sectionIcon = visibleSection.querySelector(".section-icon");
+        const sectionTitle = visibleSection.querySelector("h2");
+        scrollContextIcon.textContent = sectionIcon?.textContent || "";
+        scrollContextLabel.textContent = sectionTitle?.textContent || "";
+        scrollContext.hidden = visibleSection.id === "videos";
+
+        sectionLinks.forEach((link) => {
+          if (link.hash === `#${visibleSection.id}`) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }, { rootMargin: "-20% 0px -65% 0px" });
+
+      document.querySelectorAll("main > .section").forEach((section) => sectionObserver.observe(section));
+    }
 
     function apiErrorMessage(status, detail) {
       if (status === 400 || status === 401 || status === 403) return "La clave no es válida o no tiene permiso para usar Gemini. Comprueba tu clave en Google AI Studio.";
