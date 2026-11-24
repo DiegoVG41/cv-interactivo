@@ -62,6 +62,8 @@
     }
     .animated-cursor-art > svg { display: block; width: 100%; height: 100%; overflow: visible; }
     .animated-cursor [class*="cursor-"] { transform-box: fill-box; transform-origin: center; }
+    body.cursor-visible .animated-cursor .cursor-video { animation: cursor-bob 1.25s ease-in-out infinite; }
+    body.cursor-visible .animated-cursor .cursor-play { animation: cursor-pulse 1s ease-in-out infinite; }
     body.cursor-visible .animated-cursor .cursor-ball { animation: cursor-spin 1.5s linear infinite; }
     body.cursor-visible .animated-cursor .cursor-earth { animation: cursor-spin 6s linear infinite; }
     body.cursor-visible .animated-cursor .cursor-boat { animation: cursor-rock 1.8s ease-in-out infinite; }
@@ -74,12 +76,62 @@
     body.cursor-visible .animated-cursor .cursor-briefcase { animation: cursor-rock 2s ease-in-out infinite; }
     body.cursor-visible .animated-cursor .cursor-bars { animation: cursor-bars 1.5s ease-in-out infinite alternate; }
     @keyframes cursor-spin { to { transform: rotate(360deg); } }
+    @keyframes cursor-pulse { 0%, 100% { transform: scale(.85); opacity: .75; } 50% { transform: scale(1.08); opacity: 1; } }
     @keyframes cursor-rock { 0%, 100% { transform: rotate(-6deg) translateY(0); } 50% { transform: rotate(6deg) translateY(-1px); } }
     @keyframes cursor-waves { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(2px); } }
     @keyframes cursor-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
     @keyframes cursor-antenna { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
     @keyframes cursor-blink { 0%, 42%, 48%, 100% { transform: scaleY(1); } 45% { transform: scaleY(.12); } }
     @keyframes cursor-bars { from { transform: scaleY(.82); } to { transform: scaleY(1.12); } }
+    .card-scene {
+      position: absolute;
+      z-index: 2;
+      right: 2%;
+      bottom: 3%;
+      width: clamp(190px, 32vw, 370px);
+      max-height: 58%;
+      overflow: visible;
+      color: var(--navy-soft);
+      opacity: .11;
+      filter: blur(1.2px);
+      pointer-events: none;
+      user-select: none;
+    }
+    .card-scene [class*="scene-"] { transform-box: fill-box; transform-origin: center; }
+    .card-scene .scene-line { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 4; }
+    .card-scene .scene-accent { fill: #d7962e; }
+    .card-scene .scene-media-reel { animation: scene-spin 18s linear infinite; transform-origin: 50% 50%; }
+    .card-scene .scene-pulse { animation: scene-pulse 2.4s ease-in-out infinite; }
+    .card-scene .scene-orbit { animation: scene-orbit 5s ease-in-out infinite; }
+    .card-scene .scene-walker { animation: scene-walk 5s ease-in-out infinite alternate; }
+    .card-scene .scene-walker:nth-of-type(even) { animation-direction: alternate-reverse; animation-duration: 5.8s; }
+    .card-scene .scene-step { animation: scene-step .75s ease-in-out infinite alternate; transform-origin: top center; }
+    .card-scene .scene-cap { animation: scene-cap-toss 3.2s ease-in-out infinite; }
+    .card-scene .scene-cap:nth-of-type(2) { animation-delay: -.8s; animation-duration: 3.8s; }
+    .card-scene .scene-cap:nth-of-type(3) { animation-delay: -1.6s; animation-duration: 3.5s; }
+    .card-scene .scene-ball { animation: scene-spin 2.8s linear infinite; }
+    .card-scene .scene-bar { animation: scene-rise 1.8s ease-in-out infinite alternate; transform-origin: bottom; }
+    .card-scene .scene-bar:nth-of-type(2) { animation-delay: -.6s; }
+    .card-scene .scene-bar:nth-of-type(3) { animation-delay: -1.2s; }
+    .card-scene .scene-globe { animation: scene-spin 22s linear infinite; }
+    .card-scene .scene-bubble { animation: scene-drift 4s ease-in-out infinite; }
+    .card-scene .scene-ship { animation: scene-sail 7s ease-in-out infinite alternate; }
+    .card-scene .scene-water { animation: scene-wave 3s ease-in-out infinite alternate; }
+    .card-scene .scene-water:nth-of-type(even) { animation-delay: -1.5s; }
+    .card-scene .scene-robot { animation: scene-float 2.4s ease-in-out infinite; }
+    .card-scene .scene-antenna { animation: cursor-antenna 1.8s ease-in-out infinite; }
+    .card-scene .scene-eye { animation: cursor-blink 4s ease-in-out infinite; transform-origin: center; }
+    @keyframes scene-spin { to { transform: rotate(360deg); } }
+    @keyframes scene-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+    @keyframes scene-orbit { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+    @keyframes scene-walk { from { transform: translateX(-10px); } to { transform: translateX(14px); } }
+    @keyframes scene-step { from { transform: rotate(-15deg); } to { transform: rotate(15deg); } }
+    @keyframes scene-cap-toss { 0%, 100% { transform: translateY(14px) rotate(-7deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
+    @keyframes scene-rise { from { transform: scaleY(.62); } to { transform: scaleY(1); } }
+    @keyframes scene-drift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(8px, -9px); } }
+    @keyframes scene-sail { from { transform: translateX(-7px) translateY(2px); } to { transform: translateX(12px) translateY(-3px); } }
+    @keyframes scene-wave { from { transform: translateX(-7px); } to { transform: translateX(7px); } }
+    @keyframes scene-float { 0%, 100% { transform: translateY(2px); } 50% { transform: translateY(-8px); } }
     body.cursor-visible .animated-cursor { opacity: 1; }
     body.cursor-pressed .animated-cursor-art { --cursor-scale: .76; }
     a { color: inherit; }
@@ -102,7 +154,14 @@
       scroll-snap-align: start;
       scroll-snap-stop: always;
     }
-    .hero > .wrap { display: flex; flex: 1; flex-direction: column; }
+    .hero > .wrap { position: relative; z-index: 1; display: flex; flex: 1; flex-direction: column; }
+    .hero .card-scene {
+      right: auto;
+      bottom: 5%;
+      left: 3%;
+      width: clamp(170px, 25vw, 290px);
+      opacity: .08;
+    }
     .hero::after {
       position: absolute;
       right: -100px;
@@ -215,6 +274,7 @@
     }
     .section::before {
       position: absolute;
+      z-index: 3;
       inset: 24px auto 24px 0;
       width: 4px;
       border-radius: 0 4px 4px 0;
@@ -222,6 +282,12 @@
       content: "";
       pointer-events: none;
     }
+    .section > :not(.card-scene) { position: relative; z-index: 1; }
+    .section#videos .card-scene { top: 3%; right: 4%; bottom: auto; }
+    .section#formacion .card-scene { top: 10%; right: 2%; bottom: auto; }
+    .section#experiencia .card-scene { opacity: .13; }
+    .section#disponibilidad .card-scene { top: 7%; right: -7%; bottom: auto; width: clamp(230px, 39vw, 440px); opacity: .08; }
+    .section#assistant .card-scene { top: 8%; right: 2%; bottom: auto; }
     .section.is-visible { animation: story-card-in .52s cubic-bezier(.2,.7,.25,1) both; }
     @keyframes story-card-in { from { opacity: .7; } to { opacity: 1; } }
     .section:first-child { margin-top: 0; }
@@ -498,6 +564,8 @@
       .moeve-logo { min-width: 120px; min-height: 60px; justify-self: start; }
       .card { padding: 18px; }
       .section { min-height: 0; padding: 22px 18px; border-radius: 22px; }
+      .card-scene { right: 0; bottom: 1%; width: min(52vw, 230px); opacity: .07; }
+      .hero .card-scene { left: 0; bottom: 2%; width: min(44vw, 190px); }
       .key-settings, .chat-intro { padding-inline: 17px; }
       .video-grid { grid-template-columns: 1fr; }
       .key-row { flex-wrap: wrap; }
@@ -516,6 +584,7 @@
       .scroll-progress span { transition: none; }
       .animated-cursor { display: none !important; }
       .animated-cursor [class*="cursor-"] { animation: none !important; }
+      .card-scene, .card-scene * { animation: none !important; }
       body.cursor-animation-enabled,
       body.cursor-animation-enabled a,
       body.cursor-animation-enabled button { cursor: var(--section-cursor, auto) !important; }
@@ -532,6 +601,18 @@
 </head>
 <body>
   <header class="hero" id="inicio">
+    <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+      <g class="scene-orbit">
+        <rect class="scene-line" x="48" y="58" width="240" height="132" rx="18"/>
+        <path class="scene-line" d="M75 58v-18h186v18M75 190v16h186v-16"/>
+        <path class="scene-accent scene-pulse" d="m160 94 48 30-48 30z"/>
+      </g>
+      <g class="scene-media-reel">
+        <circle class="scene-line" cx="300" cy="48" r="23"/>
+        <circle class="scene-accent" cx="300" cy="48" r="6"/>
+        <path class="scene-line" d="M300 25v17m0 12v17m-23-23h17m12 0h17"/>
+      </g>
+    </svg>
     <div class="wrap">
       <div class="topline">
         <a class="brand" href="#inicio" aria-label="Ir al inicio">DIEGO VELÁZQUEZ-GAZTELU RUIZ</a>
@@ -570,6 +651,13 @@
 
   <main class="wrap">
     <section class="section" id="videos">
+      <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+        <rect class="scene-line" x="72" y="54" width="222" height="132" rx="15"/>
+        <path class="scene-line" d="M98 54v132m170-132v132M72 85h26m-26 35h26m-26 35h26m170-70h26m-26 35h26m-26 35h26"/>
+        <circle class="scene-accent scene-pulse" cx="183" cy="120" r="43"/>
+        <path d="m174 98 36 22-36 22z" fill="#fff"/>
+        <path class="scene-line" d="M105 207h153"/>
+      </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🎬</span>Vídeos</p><h2>Proyectos y habilidades</h2></div>
       <div class="grid video-grid" style="margin-top:18px">
         <article class="card video-card">
@@ -592,11 +680,41 @@
     </section>
 
     <section class="section" id="perfil">
+      <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+        <g class="scene-orbit">
+          <circle class="scene-line" cx="185" cy="80" r="39"/>
+          <path class="scene-line" d="M105 207c7-46 34-69 80-69s73 23 80 69z"/>
+          <circle class="scene-accent scene-pulse" cx="116" cy="66" r="9"/>
+          <circle class="scene-accent scene-pulse" cx="257" cy="43" r="7"/>
+          <path class="scene-line" d="m116 66 40 14m101-37-43 27"/>
+        </g>
+        <circle class="scene-line" cx="185" cy="80" r="56" stroke-dasharray="4 12"/>
+      </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">👋</span>02 · Perfil</p><h2>Sobre mí</h2></div>
       <p class="intro">Actualmente curso un doble grado en Digital Business con Data Science en ESIC University. Mi experiencia académica en España y Estados Unidos —incluido un intercambio en Texas— me ha permitido conocer distintos entornos. Disfruto aprendiendo mediante proyectos y trabajando en equipo, con especial interés en los sistemas de negocio.</p>
     </section>
 
     <section class="section" id="experiencia">
+      <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+        <path class="scene-line" d="M35 202h290"/>
+        <g class="scene-walker" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5">
+          <circle cx="112" cy="63" r="17" fill="#f2c46f"/>
+          <path d="m97 91 15-9 15 9-4 59h-22z" fill="#dbeaf2"/>
+          <path d="m104 91 8 8 8-8-5 28h-6z" fill="#d7962e" stroke="none"/>
+          <g class="scene-step"><path d="m104 149-12 48"/></g>
+          <g class="scene-step"><path d="m120 149 12 48"/></g>
+          <path d="m95 102-23 32m45-32 19 27m-48 63h-13m59 0h13"/>
+        </g>
+        <g class="scene-walker" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5">
+          <circle cx="237" cy="78" r="15" fill="#f2c46f"/>
+          <path d="m223 104 14-9 14 9-4 52h-20z" fill="#eaf3f8"/>
+          <path d="m230 104 7 7 7-7-4 24h-6z" fill="#d7962e" stroke="none"/>
+          <g class="scene-step"><path d="m227 156-11 42"/></g>
+          <g class="scene-step"><path d="m240 156 12 42"/></g>
+          <path d="m221 114-20 27m45-27 18 29m-49 57h-12m60 0h-12"/>
+        </g>
+        <path class="scene-accent scene-pulse" d="m170 47 5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z"/>
+      </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">💼</span>03 · Trayectoria</p><h2>Experiencia</h2></div>
       <div class="grid two-col">
         <article class="card">
@@ -618,6 +736,24 @@
     </section>
 
     <section class="section" id="formacion">
+      <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+        <g class="scene-cap">
+          <path class="scene-accent" d="m24 91 45-25 45 25-45 25z"/>
+          <path class="scene-line" d="m40 101v27c17 13 41 13 58 0v-27m16-9v39"/>
+          <circle class="scene-accent" cx="114" cy="133" r="5"/>
+        </g>
+        <g class="scene-cap">
+          <path class="scene-accent" d="m137 58 52-29 52 29-52 29z"/>
+          <path class="scene-line" d="M155 69v30c19 14 49 14 68 0V69m18-11v42"/>
+          <circle class="scene-accent" cx="241" cy="104" r="5"/>
+        </g>
+        <g class="scene-cap">
+          <path class="scene-accent" d="m229 153 38-21 38 21-38 21z"/>
+          <path class="scene-line" d="M243 163v23c14 10 36 10 50 0v-23m12-10v33"/>
+          <circle class="scene-accent" cx="305" cy="190" r="4"/>
+        </g>
+        <path class="scene-line" d="M44 210h270" stroke-dasharray="5 13"/>
+      </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🎓</span>04 · Estudios</p><h2>Formación académica</h2></div>
       <div class="card timeline">
         <article class="timeline-item"><h3>Doble grado en Digital Business con Data Science</h3><p class="meta">ESIC University · septiembre de 2022 – actualidad</p></article>
@@ -629,6 +765,15 @@
     </section>
 
     <section class="section" id="proyectos">
+      <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+        <path class="scene-line" d="M28 52v142m304-142v142M28 88h304M28 158h304"/>
+        <path class="scene-line" d="M78 52v142m204-142v142" stroke-dasharray="8 12"/>
+        <g class="scene-ball">
+          <ellipse cx="183" cy="121" rx="44" ry="23" transform="rotate(-24 183 121)" fill="#f2c46f" stroke="#12324b" stroke-width="4"/>
+          <path class="scene-line" d="m162 108 39 26m-29-33-4 9m26 17-4 9"/>
+        </g>
+        <path class="scene-accent scene-pulse" d="M52 27h14v14H52zm242 153h14v14h-14z"/>
+      </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🏈</span>05 · Iniciativa</p><h2>Proyectos y liderazgo</h2></div>
       <div class="grid two-col">
         <article class="card">
@@ -645,6 +790,14 @@
     </section>
 
     <section class="section" id="habilidades">
+      <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+        <path class="scene-line" d="M53 194V52m0 142h258"/>
+        <rect class="scene-accent scene-bar" x="88" y="126" width="39" height="68" rx="7"/>
+        <rect class="scene-accent scene-bar" x="157" y="91" width="39" height="103" rx="7" opacity=".8"/>
+        <rect class="scene-accent scene-bar" x="226" y="56" width="39" height="138" rx="7" opacity=".65"/>
+        <path class="scene-line" d="m91 99 39-22 37 2 45-35 41 8 39-27"/>
+        <circle class="scene-accent scene-pulse" cx="292" cy="25" r="8"/>
+      </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">📊</span>06 · Herramientas</p><h2>Habilidades y certificaciones</h2></div>
       <div class="grid two-col">
         <article class="card">
@@ -670,6 +823,17 @@
     </section>
 
     <section class="section" id="idiomas">
+      <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+        <g class="scene-globe">
+          <circle class="scene-line" cx="161" cy="133" r="72"/>
+          <path class="scene-line" d="M89 133h144M161 61c23 20 34 44 34 72s-11 52-34 72m0-144c-23 20-34 44-34 72s11 52 34 72"/>
+        </g>
+        <g class="scene-bubble">
+          <path class="scene-accent" d="M246 51h68a17 17 0 0 1 17 17v25a17 17 0 0 1-17 17h-22l-19 17v-17h-27a17 17 0 0 1-17-17V68a17 17 0 0 1 17-17z"/>
+          <path d="M253 79h49m-49 14h35" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5"/>
+        </g>
+        <circle class="scene-accent scene-pulse" cx="68" cy="65" r="8"/>
+      </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🌍</span>07 · Comunicación</p><h2>Idiomas y reconocimientos</h2></div>
       <div class="grid two-col">
         <article class="card">
@@ -689,6 +853,18 @@
     </section>
 
     <section class="section" id="disponibilidad">
+      <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+        <g class="scene-ship">
+          <path d="M42 145h264l-31 45H85z" fill="#1c4a66"/>
+          <rect x="95" y="91" width="48" height="48" fill="#d7962e"/>
+          <rect x="149" y="76" width="48" height="63" fill="#12324b"/>
+          <rect x="203" y="91" width="48" height="48" fill="#6ea6bd"/>
+          <path class="scene-line" d="M119 102h16m-16 13h16m30-24h16m-16 14h16m-16 14h16m29-27h16m-16 13h16"/>
+          <path class="scene-line" d="M258 91V55h28v36m-20-24h12"/>
+        </g>
+        <path class="scene-line scene-water" d="M29 197c18-14 32 14 50 0s32 14 50 0 32 14 50 0 32 14 50 0 32 14 50 0 32 14 50 0"/>
+        <path class="scene-line scene-water" d="M45 218c16-12 29 12 45 0s29 12 45 0 29 12 45 0 29 12 45 0 29 12 45 0"/>
+      </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">⚓</span>08 · Situación actual</p><h2>Mi experiencia en MOEVE</h2></div>
       <article class="current-role">
         <div class="moeve-logo">
@@ -715,6 +891,19 @@
     </section>
 
     <section class="section" id="assistant">
+      <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+        <g class="scene-robot">
+          <g class="scene-antenna"><path class="scene-line" d="M180 44V24"/><circle class="scene-accent" cx="180" cy="19" r="8"/></g>
+          <rect x="74" y="52" width="212" height="142" rx="38" fill="#eaf3f8" stroke="#12324b" stroke-width="5"/>
+          <rect x="96" y="76" width="168" height="76" rx="20" fill="#fff"/>
+          <circle class="scene-accent scene-eye" cx="145" cy="114" r="12"/>
+          <circle class="scene-accent scene-eye" cx="215" cy="114" r="12"/>
+          <path class="scene-line" d="M145 169h70m-106-79H83v48h26m142-48h26v48h-26"/>
+        </g>
+        <circle class="scene-line scene-orbit" cx="180" cy="123" r="102" stroke-dasharray="5 14"/>
+        <circle class="scene-accent scene-pulse" cx="65" cy="68" r="7"/>
+        <circle class="scene-accent scene-pulse" cx="294" cy="186" r="6"/>
+      </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🤖</span>09 · Conversación</p><h2>Asistente virtual</h2></div>
       <div class="card chat-card">
         <div class="chat-intro"><h3>Pregunta sobre mi perfil</h3><p>Respuestas basadas únicamente en la información de este currículum.</p></div>
@@ -919,7 +1108,7 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
     });
 
     const cursorArtwork = {
-      videos: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="7" width="24" height="21" rx="4" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M5 8h22l2-4H7z" fill="#f2c46f" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="m11 10 3-5m5 5 3-5" stroke="#12324b" stroke-width="2" stroke-linecap="round"/><path d="m14 14 7 4-7 4z" fill="#d7962e" stroke="#12324b" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
+      videos: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-video"><rect x="4" y="7" width="24" height="21" rx="4" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M5 8h22l2-4H7z" fill="#f2c46f" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="m11 10 3-5m5 5 3-5" stroke="#12324b" stroke-width="2" stroke-linecap="round"/><path class="cursor-play" d="m14 14 7 4-7 4z" fill="#d7962e" stroke="#12324b" stroke-width="1.5" stroke-linejoin="round"/></g></svg>`,
       perfil: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-person"><circle cx="16" cy="10" r="5" fill="#f2c46f" stroke="#12324b" stroke-width="2"/><path d="M5 28c.8-6 4.7-9 11-9s10.2 3 11 9z" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/></g></svg>`,
       experiencia: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-briefcase"><rect x="4" y="10" width="24" height="17" rx="3" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M11 10V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3M4 17h24m-15 0v3h6v-3" fill="none" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/></g></svg>`,
       formacion: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-cap"><path d="m3 11 13-7 13 7-13 7z" fill="#f2c46f" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="M8 14v7c4 3 12 3 16 0v-7m5-2v8" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><circle cx="29" cy="22" r="1.5" fill="#d7962e"/></g></svg>`,
