@@ -54,15 +54,34 @@
       transition: opacity .12s ease;
       will-change: transform;
     }
-    .animated-cursor img {
-      display: block;
+    .animated-cursor-art {
       width: 100%;
       height: 100%;
       transform: rotate(var(--cursor-tilt, 0deg)) scale(var(--cursor-scale, 1));
       transition: transform .12s ease;
     }
+    .animated-cursor-art > svg { display: block; width: 100%; height: 100%; overflow: visible; }
+    .animated-cursor [class*="cursor-"] { transform-box: fill-box; transform-origin: center; }
+    body.cursor-visible .animated-cursor .cursor-ball { animation: cursor-spin 1.5s linear infinite; }
+    body.cursor-visible .animated-cursor .cursor-earth { animation: cursor-spin 6s linear infinite; }
+    body.cursor-visible .animated-cursor .cursor-boat { animation: cursor-rock 1.8s ease-in-out infinite; }
+    body.cursor-visible .animated-cursor .cursor-waves { animation: cursor-waves 1.2s ease-in-out infinite; }
+    body.cursor-visible .animated-cursor .cursor-robot { animation: cursor-bob 1s ease-in-out infinite; }
+    body.cursor-visible .animated-cursor .cursor-antenna { animation: cursor-antenna 1.3s ease-in-out infinite; }
+    body.cursor-visible .animated-cursor .cursor-eye { animation: cursor-blink 3.2s ease-in-out infinite; }
+    body.cursor-visible .animated-cursor .cursor-cap { animation: cursor-rock 2.2s ease-in-out infinite; }
+    body.cursor-visible .animated-cursor .cursor-person { animation: cursor-bob 1.8s ease-in-out infinite; }
+    body.cursor-visible .animated-cursor .cursor-briefcase { animation: cursor-rock 2s ease-in-out infinite; }
+    body.cursor-visible .animated-cursor .cursor-bars { animation: cursor-bars 1.5s ease-in-out infinite alternate; }
+    @keyframes cursor-spin { to { transform: rotate(360deg); } }
+    @keyframes cursor-rock { 0%, 100% { transform: rotate(-6deg) translateY(0); } 50% { transform: rotate(6deg) translateY(-1px); } }
+    @keyframes cursor-waves { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(2px); } }
+    @keyframes cursor-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+    @keyframes cursor-antenna { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+    @keyframes cursor-blink { 0%, 42%, 48%, 100% { transform: scaleY(1); } 45% { transform: scaleY(.12); } }
+    @keyframes cursor-bars { from { transform: scaleY(.82); } to { transform: scaleY(1.12); } }
     body.cursor-visible .animated-cursor { opacity: 1; }
-    body.cursor-pressed .animated-cursor img { --cursor-scale: .76; }
+    body.cursor-pressed .animated-cursor-art { --cursor-scale: .76; }
     a { color: inherit; }
     a:focus-visible, button:focus-visible, input:focus-visible {
       outline: 3px solid var(--accent);
@@ -452,6 +471,7 @@
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
       .card:hover, .button-link:hover { transform: none; }
       .animated-cursor { display: none !important; }
+      .animated-cursor [class*="cursor-"] { animation: none !important; }
       body.cursor-animation-enabled,
       body.cursor-animation-enabled a,
       body.cursor-animation-enabled button { cursor: var(--section-cursor, auto) !important; }
@@ -682,7 +702,7 @@
   </div>
 
   <div class="animated-cursor" id="animatedCursor" aria-hidden="true">
-    <img id="animatedCursorImage" alt="" draggable="false">
+    <div class="animated-cursor-art" id="animatedCursorArtwork"></div>
   </div>
 
   <footer><div class="wrap"><span>Diego Velázquez-Gaztelu Ruiz</span><span>CV interactivo · 2026</span></div></footer>
@@ -821,20 +841,20 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
     const sectionLinks = [...document.querySelectorAll('.topline nav a[href^="#"]')];
     const cursorArtwork = {
       videos: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="7" width="24" height="21" rx="4" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M5 8h22l2-4H7z" fill="#f2c46f" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="m11 10 3-5m5 5 3-5" stroke="#12324b" stroke-width="2" stroke-linecap="round"/><path d="m14 14 7 4-7 4z" fill="#d7962e" stroke="#12324b" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
-      perfil: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="10" r="5" fill="#f2c46f" stroke="#12324b" stroke-width="2"/><path d="M5 28c.8-6 4.7-9 11-9s10.2 3 11 9z" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/></svg>`,
-      experiencia: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="10" width="24" height="17" rx="3" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M11 10V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3M4 17h24m-15 0v3h6v-3" fill="none" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/></svg>`,
-      formacion: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="m3 11 13-7 13 7-13 7z" fill="#f2c46f" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="M8 14v7c4 3 12 3 16 0v-7m5-2v8" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><circle cx="29" cy="22" r="1.5" fill="#d7962e"/></svg>`,
-      proyectos: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><ellipse cx="16" cy="16" rx="9" ry="13" transform="rotate(45 16 16)" fill="#f2c46f" stroke="#12324b" stroke-width="2"/><path d="m11 10 10 12m-7-15-1 4m5 7-1 4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>`,
-      habilidades: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M5 27V6m0 21h23" fill="none" stroke="#12324b" stroke-width="2" stroke-linecap="round"/><rect x="9" y="17" width="5" height="8" rx="1" fill="#f2c46f" stroke="#12324b" stroke-width="1.5"/><rect x="17" y="11" width="5" height="14" rx="1" fill="#eaf3f8" stroke="#12324b" stroke-width="1.5"/><rect x="25" y="6" width="4" height="19" rx="1" fill="#d7962e" stroke="#12324b" stroke-width="1.5"/></svg>`,
-      idiomas: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M4 16h24M16 4c4 4 5 8 5 12s-1 8-5 12m0-24c-4 4-5 8-5 12s1 8 5 12" fill="none" stroke="#d7962e" stroke-width="2"/></svg>`,
-      disponibilidad: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M4 19h24l-4 8H9z" fill="#d7962e" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="M10 18V9h11l5 9m-11 0v-5h7v5M4 29c3-2 5 2 8 0s5 2 8 0 5 2 8 0" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>`,
-      assistant: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M16 4v4m-3-4h6" fill="none" stroke="#12324b" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="3" r="2" fill="#d7962e"/><rect x="5" y="9" width="22" height="16" rx="5" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><circle cx="12" cy="16" r="2" fill="#d7962e"/><circle cx="20" cy="16" r="2" fill="#d7962e"/><path d="M12 21h8M3 15v5m26-5v5" fill="none" stroke="#12324b" stroke-width="2" stroke-linecap="round"/></svg>`
+      perfil: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-person"><circle cx="16" cy="10" r="5" fill="#f2c46f" stroke="#12324b" stroke-width="2"/><path d="M5 28c.8-6 4.7-9 11-9s10.2 3 11 9z" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/></g></svg>`,
+      experiencia: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-briefcase"><rect x="4" y="10" width="24" height="17" rx="3" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M11 10V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3M4 17h24m-15 0v3h6v-3" fill="none" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/></g></svg>`,
+      formacion: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-cap"><path d="m3 11 13-7 13 7-13 7z" fill="#f2c46f" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="M8 14v7c4 3 12 3 16 0v-7m5-2v8" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><circle cx="29" cy="22" r="1.5" fill="#d7962e"/></g></svg>`,
+      proyectos: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-ball"><ellipse cx="16" cy="16" rx="9" ry="13" transform="rotate(45 16 16)" fill="#f2c46f" stroke="#12324b" stroke-width="2"/><path d="m11 10 10 12m-7-15-1 4m5 7-1 4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g></svg>`,
+      habilidades: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M5 27V6m0 21h23" fill="none" stroke="#12324b" stroke-width="2" stroke-linecap="round"/><g class="cursor-bars"><rect x="9" y="17" width="5" height="8" rx="1" fill="#f2c46f" stroke="#12324b" stroke-width="1.5"/><rect x="17" y="11" width="5" height="14" rx="1" fill="#eaf3f8" stroke="#12324b" stroke-width="1.5"/><rect x="25" y="6" width="4" height="19" rx="1" fill="#d7962e" stroke="#12324b" stroke-width="1.5"/></g></svg>`,
+      idiomas: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-earth"><circle cx="16" cy="16" r="12" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M4 16h24M16 4c4 4 5 8 5 12s-1 8-5 12m0-24c-4 4-5 8-5 12s1 8 5 12" fill="none" stroke="#d7962e" stroke-width="2"/></g></svg>`,
+      disponibilidad: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-boat"><path d="M4 19h24l-4 8H9z" fill="#d7962e" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="M10 18V9h11l5 9m-11 0v-5h7v5" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></g><path class="cursor-waves" d="M4 29c3-2 5 2 8 0s5 2 8 0 5 2 8 0" fill="none" stroke="#12324b" stroke-width="2" stroke-linecap="round"/></svg>`,
+      assistant: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-robot"><g class="cursor-antenna"><path d="M16 4v5" fill="none" stroke="#12324b" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="3" r="2" fill="#d7962e"/></g><rect x="5" y="9" width="22" height="16" rx="5" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><circle class="cursor-eye" cx="12" cy="16" r="2" fill="#d7962e"/><circle class="cursor-eye" cx="20" cy="16" r="2" fill="#d7962e"/><path d="M12 21h8M3 15v5m26-5v5" fill="none" stroke="#12324b" stroke-width="2" stroke-linecap="round"/></g></svg>`
     };
     const customCursorEnabled = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const cursorAnimationEnabled = customCursorEnabled
       && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const animatedCursor = document.getElementById("animatedCursor");
-    const animatedCursorImage = document.getElementById("animatedCursorImage");
+    const animatedCursorArtwork = document.getElementById("animatedCursorArtwork");
     let cursorX = 0;
     let cursorY = 0;
     let targetCursorX = 0;
@@ -846,7 +866,7 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
       const artwork = cursorArtwork[sectionId] || cursorArtwork.videos;
       const dataUrl = `data:image/svg+xml,${encodeURIComponent(artwork)}`;
       document.body.style.setProperty("--section-cursor", `url("${dataUrl}") 16 16, auto`);
-      if (animatedCursorImage) animatedCursorImage.src = dataUrl;
+      if (animatedCursorArtwork) animatedCursorArtwork.innerHTML = artwork;
     }
 
     setSectionCursor("videos");
@@ -871,7 +891,7 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
       document.body.classList.remove("cursor-visible", "cursor-pressed");
     }
 
-    if (cursorAnimationEnabled && animatedCursor && animatedCursorImage) {
+    if (cursorAnimationEnabled && animatedCursor && animatedCursorArtwork) {
       document.body.classList.add("cursor-animation-enabled");
       document.addEventListener("pointermove", (event) => {
         if (event.pointerType !== "mouse") return;
