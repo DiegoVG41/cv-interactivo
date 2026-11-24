@@ -88,7 +88,18 @@
       text-decoration-thickness: 2px;
       text-underline-offset: 6px;
     }
-    .hero-content { position: relative; z-index: 1; max-width: 790px; }
+    .hero-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr);
+      align-items: center;
+      gap: 28px;
+    }
+    .hero-content { min-width: 0; }
+    .hero-video { padding: 18px; }
+    .hero-video .video-shell { min-height: 0; aspect-ratio: 16 / 9; }
+    .hero-video .video-shell video { max-height: 320px; aspect-ratio: 16 / 9; object-fit: contain; }
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -167,19 +178,6 @@
     }
     .grid { display: grid; gap: 18px; }
     .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .pitch-feature {
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(260px, .75fr);
-      gap: 18px;
-      align-items: stretch;
-    }
-    .pitch-feature .video-shell { min-height: 320px; }
-    .pitch-feature .video-shell video { max-height: 480px; aspect-ratio: 16 / 9; }
-    .pitch-copy { display: flex; flex-direction: column; justify-content: center; }
-    .pitch-copy h3 { margin: 0; font-size: clamp(1.35rem, 3vw, 1.8rem); line-height: 1.25; }
-    .pitch-copy p { color: var(--muted); }
-    .pitch-copy .button-link { align-self: flex-start; border-color: var(--navy); color: var(--navy); }
-    .pitch-copy .button-link:hover { background: #edf5f9; }
     .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .card {
       min-width: 0;
@@ -399,9 +397,9 @@
     @media (max-width: 760px) {
       .topline { align-items: flex-start; margin-bottom: 52px; }
       .topline nav { justify-content: flex-end; gap: 9px 14px; }
+      .hero-layout { grid-template-columns: 1fr; }
+      .hero-video { width: min(100%, 560px); }
       .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .pitch-feature { grid-template-columns: 1fr; }
-      .pitch-feature .video-shell { min-height: 220px; }
       .video-shell { min-height: 180px; }
     }
     @media (max-width: 560px) {
@@ -445,7 +443,7 @@
       <div class="topline">
         <a class="brand" href="#inicio" aria-label="Ir al inicio">DIEGO VELÁZQUEZ-GAZTELU RUIZ</a>
         <nav aria-label="Navegación principal">
-          <a href="#videos">Elevator pitch</a>
+          <a href="#inicio">Elevator pitch</a>
           <a href="#perfil">Perfil</a>
           <a href="#experiencia">Experiencia</a>
           <a href="#formacion">Formación</a>
@@ -453,39 +451,33 @@
           <a href="#assistant">Asistente IA</a>
         </nav>
       </div>
-      <div class="hero-content" id="inicio">
-        <p class="eyebrow">Digital Business · Data Science</p>
-        <h1>Diego Velázquez-Gaztelu Ruiz</h1>
-        <p class="headline">Estudiante de doble grado en Digital Business con Data Science en ESIC University. Aprendo haciendo, disfruto trabajando en equipo y me interesa conectar negocio y tecnología.</p>
-        <div class="hero-links" aria-label="Contacto y perfiles">
-          <a class="button-link primary" href="mailto:dvelazquezgaztelu@gmail.com">Escríbeme</a>
-          <a class="button-link" href="tel:+34606113113">+34 606 113 113</a>
-          <a class="button-link" href="https://www.linkedin.com/in/diego-vel%C3%A1zquez-gaztelu-ruiz-53655a292" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-          <a class="button-link" href="https://www.credly.com/users/diego-velazquez-gaztelu-ruiz.9d282656" target="_blank" rel="noopener noreferrer">Credly ↗</a>
+      <div class="hero-layout">
+        <div class="hero-content" id="inicio">
+          <p class="eyebrow">Digital Business · Data Science</p>
+          <h1>Diego Velázquez-Gaztelu Ruiz</h1>
+          <p class="headline">Estudiante de doble grado en Digital Business con Data Science en ESIC University. Aprendo haciendo, disfruto trabajando en equipo y me interesa conectar negocio y tecnología.</p>
+          <div class="hero-links" aria-label="Contacto y perfiles">
+            <a class="button-link primary" href="mailto:dvelazquezgaztelu@gmail.com">Escríbeme</a>
+            <a class="button-link" href="tel:+34606113113">+34 606 113 113</a>
+            <a class="button-link" href="https://www.linkedin.com/in/diego-vel%C3%A1zquez-gaztelu-ruiz-53655a292" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <a class="button-link" href="https://www.credly.com/users/diego-velazquez-gaztelu-ruiz.9d282656" target="_blank" rel="noopener noreferrer">Credly ↗</a>
+          </div>
         </div>
+        <article class="card video-card hero-video">
+          <h2>01 · Elevator Pitch</h2>
+          <div class="video-shell" data-video="videos/pitch.mp4">
+            <video controls preload="metadata" playsinline aria-label="Vídeo Elevator Pitch de Diego Velázquez-Gaztelu Ruiz"></video>
+            <div class="video-fallback"><span class="play-icon" aria-hidden="true">▶</span><strong>El vídeo aún no está publicado</strong><span class="video-status">Añade videos/pitch.mp4 al repositorio para reproducirlo aquí.</span></div>
+          </div>
+          <p>Mi presentación, estudios y motivación.</p>
+        </article>
       </div>
     </div>
   </header>
 
   <main class="wrap">
     <section class="section" id="videos">
-      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🎬</span>01 · Presentación</p><h2>Empieza aquí: Elevator Pitch</h2></div>
-      <div class="pitch-feature">
-        <article class="card video-card">
-          <h3>Mi presentación</h3>
-          <div class="video-shell" data-video="videos/pitch.mp4">
-            <video controls preload="metadata" playsinline aria-label="Vídeo Elevator Pitch de Diego Velázquez-Gaztelu Ruiz"></video>
-            <div class="video-fallback"><span class="play-icon" aria-hidden="true">▶</span><strong>El vídeo aún no está publicado</strong><span class="video-status">Añade videos/pitch.mp4 al repositorio para reproducirlo aquí.</span></div>
-          </div>
-          <p>Una primera toma de contacto con mi perfil, mis estudios y lo que me motiva.</p>
-        </article>
-        <div class="card pitch-copy">
-          <p class="eyebrow">Negocio · Datos · Equipo</p>
-          <h3>Aprender haciendo. Crecer en equipo.</h3>
-          <p>Me gusta transformar las ideas en proyectos y descubrir cómo la tecnología puede ayudar a los negocios.</p>
-          <a class="button-link" href="#perfil">Conoce mi trayectoria ↓</a>
-        </div>
-      </div>
+      <div class="section-heading"><p><span class="section-icon" aria-hidden="true">🎬</span>Vídeos</p><h2>Proyectos y habilidades</h2></div>
       <div class="grid video-grid" style="margin-top:18px">
         <article class="card video-card">
           <h3>Proyecto destacado</h3>
