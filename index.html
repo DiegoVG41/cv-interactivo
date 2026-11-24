@@ -103,9 +103,7 @@
     .card-scene .scene-media-reel { animation: scene-spin 18s linear infinite; transform-origin: 50% 50%; }
     .card-scene .scene-pulse { animation: scene-pulse 2.4s ease-in-out infinite; }
     .card-scene .scene-orbit { animation: scene-orbit 5s ease-in-out infinite; }
-    .card-scene .scene-walker { animation: scene-walk 5s ease-in-out infinite alternate; }
-    .card-scene .scene-walker:nth-of-type(even) { animation-direction: alternate-reverse; animation-duration: 5.8s; }
-    .card-scene .scene-step { animation: scene-step .75s ease-in-out infinite alternate; transform-origin: top center; }
+    .card-scene .scene-briefcase { animation: scene-briefcase 3s ease-in-out infinite; }
     .card-scene .scene-cap { animation: scene-cap-toss 3.2s ease-in-out infinite; }
     .card-scene .scene-cap:nth-of-type(2) { animation-delay: -.8s; animation-duration: 3.8s; }
     .card-scene .scene-cap:nth-of-type(3) { animation-delay: -1.6s; animation-duration: 3.5s; }
@@ -119,13 +117,13 @@
     .card-scene .scene-water { animation: scene-wave 3s ease-in-out infinite alternate; }
     .card-scene .scene-water:nth-of-type(even) { animation-delay: -1.5s; }
     .card-scene .scene-robot { animation: scene-float 2.4s ease-in-out infinite; }
+    .card-scene .scene-person { animation: scene-float 3s ease-in-out infinite; }
     .card-scene .scene-antenna { animation: cursor-antenna 1.8s ease-in-out infinite; }
     .card-scene .scene-eye { animation: cursor-blink 4s ease-in-out infinite; transform-origin: center; }
     @keyframes scene-spin { to { transform: rotate(360deg); } }
     @keyframes scene-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
     @keyframes scene-orbit { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-    @keyframes scene-walk { from { transform: translateX(-10px); } to { transform: translateX(14px); } }
-    @keyframes scene-step { from { transform: rotate(-15deg); } to { transform: rotate(15deg); } }
+    @keyframes scene-briefcase { 0%, 100% { transform: translateX(-8px) rotate(-1.5deg); } 50% { transform: translateX(8px) rotate(1.5deg); } }
     @keyframes scene-cap-toss { 0%, 100% { transform: translateY(14px) rotate(-7deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
     @keyframes scene-rise { from { transform: scaleY(.62); } to { transform: scaleY(1); } }
     @keyframes scene-drift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(8px, -9px); } }
@@ -681,14 +679,10 @@
 
     <section class="section" id="perfil">
       <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
-        <g class="scene-orbit">
-          <circle class="scene-line" cx="185" cy="80" r="39"/>
-          <path class="scene-line" d="M105 207c7-46 34-69 80-69s73 23 80 69z"/>
-          <circle class="scene-accent scene-pulse" cx="116" cy="66" r="9"/>
-          <circle class="scene-accent scene-pulse" cx="257" cy="43" r="7"/>
-          <path class="scene-line" d="m116 66 40 14m101-37-43 27"/>
+        <g class="scene-person">
+          <circle class="scene-accent" cx="185" cy="80" r="39"/>
+          <path d="M105 207c7-46 34-69 80-69s73 23 80 69z" fill="#eaf3f8" stroke="currentColor" stroke-linejoin="round" stroke-width="4"/>
         </g>
-        <circle class="scene-line" cx="185" cy="80" r="56" stroke-dasharray="4 12"/>
       </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">👋</span>02 · Perfil</p><h2>Sobre mí</h2></div>
       <p class="intro">Actualmente curso un doble grado en Digital Business con Data Science en ESIC University. Mi experiencia académica en España y Estados Unidos —incluido un intercambio en Texas— me ha permitido conocer distintos entornos. Disfruto aprendiendo mediante proyectos y trabajando en equipo, con especial interés en los sistemas de negocio.</p>
@@ -696,24 +690,15 @@
 
     <section class="section" id="experiencia">
       <svg class="card-scene" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
-        <path class="scene-line" d="M35 202h290"/>
-        <g class="scene-walker" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5">
-          <circle cx="112" cy="63" r="17" fill="#f2c46f"/>
-          <path d="m97 91 15-9 15 9-4 59h-22z" fill="#dbeaf2"/>
-          <path d="m104 91 8 8 8-8-5 28h-6z" fill="#d7962e" stroke="none"/>
-          <g class="scene-step"><path d="m104 149-12 48"/></g>
-          <g class="scene-step"><path d="m120 149 12 48"/></g>
-          <path d="m95 102-23 32m45-32 19 27m-48 63h-13m59 0h13"/>
+        <g class="scene-briefcase">
+          <rect x="69" y="82" width="222" height="126" rx="16" fill="#eaf3f8" stroke="#12324b" stroke-width="5"/>
+          <path class="scene-line" d="M137 82V62a11 11 0 0 1 11-11h64a11 11 0 0 1 11 11v20M69 127h222"/>
+          <path class="scene-line" d="M165 127v17h30v-17"/>
+          <rect class="scene-accent" x="170" y="145" width="20" height="11" rx="4"/>
+          <path class="scene-line" d="M91 99h18m164 0h-18"/>
         </g>
-        <g class="scene-walker" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5">
-          <circle cx="237" cy="78" r="15" fill="#f2c46f"/>
-          <path d="m223 104 14-9 14 9-4 52h-20z" fill="#eaf3f8"/>
-          <path d="m230 104 7 7 7-7-4 24h-6z" fill="#d7962e" stroke="none"/>
-          <g class="scene-step"><path d="m227 156-11 42"/></g>
-          <g class="scene-step"><path d="m240 156 12 42"/></g>
-          <path d="m221 114-20 27m45-27 18 29m-49 57h-12m60 0h-12"/>
-        </g>
-        <path class="scene-accent scene-pulse" d="m170 47 5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z"/>
+        <path class="scene-line" d="M36 217h288" stroke-dasharray="6 14"/>
+        <path class="scene-accent scene-pulse" d="m48 83 5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z"/>
       </svg>
       <div class="section-heading"><p><span class="section-icon" aria-hidden="true">💼</span>03 · Trayectoria</p><h2>Experiencia</h2></div>
       <div class="grid two-col">
@@ -819,7 +804,6 @@
           </div>
         </article>
       </div>
-      <p class="meta" style="margin-top:12px">No se indican lenguajes de programación, frameworks ni bases de datos en la información facilitada.</p>
     </section>
 
     <section class="section" id="idiomas">
