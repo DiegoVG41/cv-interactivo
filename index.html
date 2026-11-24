@@ -188,7 +188,35 @@
     .button-link:hover { transform: translateY(-2px); border-color: var(--accent); background: rgba(255,255,255,.7); }
     .button-link.primary { border-color: var(--accent); background: #f2c46f; color: var(--navy); }
     main { padding: 46px 0 76px; }
-    .section { margin-top: 58px; }
+    .section {
+      position: relative;
+      display: flex;
+      min-height: min(72svh, 860px);
+      flex-direction: column;
+      justify-content: center;
+      margin-top: 58px;
+      padding: clamp(22px, 4vw, 46px);
+      overflow: hidden;
+      border: 1px solid #dfe8ef;
+      border-radius: 28px;
+      background: linear-gradient(140deg, #fff 0%, #fff 68%, #f3f8fb 100%);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 24px;
+    }
+    .section::before {
+      position: absolute;
+      inset: 24px auto 24px 0;
+      width: 4px;
+      border-radius: 0 4px 4px 0;
+      background: linear-gradient(180deg, #eab75d, #6ea6bd);
+      content: "";
+      pointer-events: none;
+    }
+    .section.is-visible { animation: story-card-in .52s cubic-bezier(.2,.7,.25,1) both; }
+    @keyframes story-card-in {
+      from { opacity: .7; transform: translateY(22px) scale(.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
     .section:first-child { margin-top: 0; }
     .section-heading { margin-bottom: 22px; }
     .section-heading p {
@@ -422,20 +450,24 @@
       z-index: 5;
       right: 18px;
       bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 9px;
+      display: grid;
+      width: max-content;
       max-width: calc(100vw - 36px);
-      padding: 9px 13px;
+      gap: 6px;
+      padding: 8px 12px;
       border: 1px solid #cfdae3;
-      border-radius: 999px;
+      border-radius: 14px;
       background: rgba(255,255,255,.96);
       box-shadow: 0 6px 22px rgba(18,50,75,.12);
       color: var(--navy);
-      font-size: .82rem;
+      font-size: .78rem;
       font-weight: 700;
       pointer-events: none;
     }
+    .scroll-context-top { display: flex; align-items: center; gap: 7px; }
+    .scroll-context-step { margin-left: auto; color: var(--muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
+    .scroll-progress { height: 3px; overflow: hidden; border-radius: 999px; background: #e8eef3; }
+    .scroll-progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--accent); transition: width .35s ease; }
     .scroll-context[hidden] { display: none; }
     .scroll-context-icon { font-size: 1rem; }
     @media (max-width: 760px) {
@@ -457,6 +489,7 @@
       .current-role { grid-template-columns: 1fr; padding: 18px; }
       .moeve-logo { min-width: 120px; min-height: 60px; justify-self: start; }
       .card { padding: 18px; }
+      .section { min-height: 0; padding: 22px 18px; border-radius: 22px; }
       .key-settings, .chat-intro { padding-inline: 17px; }
       .video-grid { grid-template-columns: 1fr; }
       .key-row { flex-wrap: wrap; }
@@ -465,11 +498,13 @@
       .chat-form { padding-inline: 17px; }
       .chat-form .button { padding-inline: 12px; }
       footer .wrap { display: block; }
-      .scroll-context { right: 12px; bottom: 12px; }
+      .scroll-context { right: 12px; bottom: 12px; max-width: calc(100vw - 24px); }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
       .card:hover, .button-link:hover { transform: none; }
+      .section.is-visible { animation: none; }
+      .scroll-progress span { transition: none; }
       .animated-cursor { display: none !important; }
       .animated-cursor [class*="cursor-"] { animation: none !important; }
       body.cursor-animation-enabled,
@@ -697,8 +732,12 @@
   </main>
 
   <div class="scroll-context" id="scrollContext" hidden role="status" aria-live="polite" aria-atomic="true">
-    <span class="scroll-context-icon" id="scrollContextIcon" aria-hidden="true"></span>
-    <span>Estás viendo: <span id="scrollContextLabel"></span></span>
+    <div class="scroll-context-top">
+      <span class="scroll-context-icon" id="scrollContextIcon" aria-hidden="true"></span>
+      <strong id="scrollContextLabel"></strong>
+      <span class="scroll-context-step"><span id="scrollContextIndex">01</span> / <span id="scrollContextTotal">09</span></span>
+    </div>
+    <div class="scroll-progress" aria-hidden="true"><span id="scrollProgressFill"></span></div>
   </div>
 
   <div class="animated-cursor" id="animatedCursor" aria-hidden="true">
@@ -838,7 +877,12 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
     const scrollContext = document.getElementById("scrollContext");
     const scrollContextIcon = document.getElementById("scrollContextIcon");
     const scrollContextLabel = document.getElementById("scrollContextLabel");
+    const scrollContextIndex = document.getElementById("scrollContextIndex");
+    const scrollContextTotal = document.getElementById("scrollContextTotal");
+    const scrollProgressFill = document.getElementById("scrollProgressFill");
     const sectionLinks = [...document.querySelectorAll('.topline nav a[href^="#"]')];
+    const contentSections = [...document.querySelectorAll("main > .section")];
+    if (scrollContextTotal) scrollContextTotal.textContent = String(contentSections.length).padStart(2, "0");
     const cursorArtwork = {
       videos: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="7" width="24" height="21" rx="4" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M5 8h22l2-4H7z" fill="#f2c46f" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="m11 10 3-5m5 5 3-5" stroke="#12324b" stroke-width="2" stroke-linecap="round"/><path d="m14 14 7 4-7 4z" fill="#d7962e" stroke="#12324b" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
       perfil: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-person"><circle cx="16" cy="10" r="5" fill="#f2c46f" stroke="#12324b" stroke-width="2"/><path d="M5 28c.8-6 4.7-9 11-9s10.2 3 11 9z" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/></g></svg>`,
@@ -932,13 +976,19 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
       const sectionObserver = new IntersectionObserver((entries) => {
         const visibleSection = entries.find((entry) => entry.isIntersecting)?.target;
         if (!visibleSection) return;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("is-visible");
+        });
         setSectionCursor(visibleSection.id);
 
+        const sectionIndex = contentSections.indexOf(visibleSection);
+        if (scrollContextIndex) scrollContextIndex.textContent = String(sectionIndex + 1).padStart(2, "0");
+        if (scrollProgressFill) scrollProgressFill.style.width = `${((sectionIndex + 1) / contentSections.length) * 100}%`;
         const sectionIcon = visibleSection.querySelector(".section-icon");
         const sectionTitle = visibleSection.querySelector("h2");
         scrollContextIcon.textContent = sectionIcon?.textContent || "";
         scrollContextLabel.textContent = sectionTitle?.textContent || "";
-        scrollContext.hidden = visibleSection.id === "videos";
+        scrollContext.hidden = visibleSection.id === "videos" || visibleSection.id === "assistant";
 
         sectionLinks.forEach((link) => {
           if (link.hash === `#${visibleSection.id}`) {
@@ -949,7 +999,7 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
         });
       }, { rootMargin: "-20% 0px -65% 0px" });
 
-      document.querySelectorAll("main > .section").forEach((section) => sectionObserver.observe(section));
+      contentSections.forEach((section) => sectionObserver.observe(section));
     }
 
     function apiErrorMessage(status, detail) {
