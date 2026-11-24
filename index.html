@@ -24,7 +24,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 0; scroll-snap-type: y mandatory; }
     body {
       margin: 0;
       background: var(--paper);
@@ -90,13 +90,19 @@
     .wrap { width: min(1100px, calc(100% - 40px)); margin-inline: auto; }
     .hero {
       position: relative;
+      display: flex;
+      min-height: 100vh;
+      min-height: 100svh;
       overflow: hidden;
       padding: 36px 0 62px;
       background:
         radial-gradient(ellipse at 85% 5%, rgba(215, 150, 46, .14), transparent 30rem),
         linear-gradient(135deg, #f3f9fc, #e5f1f7);
       color: var(--ink);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
     }
+    .hero > .wrap { display: flex; flex: 1; flex-direction: column; }
     .hero::after {
       position: absolute;
       right: -100px;
@@ -136,6 +142,7 @@
       position: relative;
       z-index: 1;
       display: grid;
+      flex: 1;
       grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr);
       align-items: center;
       gap: 28px;
@@ -187,21 +194,24 @@
     }
     .button-link:hover { transform: translateY(-2px); border-color: var(--accent); background: rgba(255,255,255,.7); }
     .button-link.primary { border-color: var(--accent); background: #f2c46f; color: var(--navy); }
-    main { padding: 46px 0 76px; }
+    main { padding: 0 0 48px; }
     .section {
       position: relative;
       display: flex;
-      min-height: min(72svh, 860px);
+      min-height: 100vh;
+      min-height: 100svh;
       flex-direction: column;
       justify-content: center;
-      margin-top: 58px;
+      margin-top: 0;
       padding: clamp(22px, 4vw, 46px);
       overflow: hidden;
       border: 1px solid #dfe8ef;
       border-radius: 28px;
       background: linear-gradient(140deg, #fff 0%, #fff 68%, #f3f8fb 100%);
       box-shadow: var(--shadow);
-      scroll-margin-top: 24px;
+      scroll-margin-top: 0;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
     }
     .section::before {
       position: absolute;
@@ -213,10 +223,7 @@
       pointer-events: none;
     }
     .section.is-visible { animation: story-card-in .52s cubic-bezier(.2,.7,.25,1) both; }
-    @keyframes story-card-in {
-      from { opacity: .7; transform: translateY(22px) scale(.99); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
+    @keyframes story-card-in { from { opacity: .7; } to { opacity: 1; } }
     .section:first-child { margin-top: 0; }
     .section-heading { margin-bottom: 22px; }
     .section-heading p {
@@ -483,8 +490,9 @@
       .hero { padding: 22px 0 44px; }
       .topline { display: block; margin-bottom: 44px; }
       .topline nav { justify-content: flex-start; margin-top: 13px; }
-      main { padding-top: 32px; }
-      .section { margin-top: 44px; }
+      .hero { min-height: 100vh; min-height: 100svh; }
+      main { padding-bottom: 32px; }
+      .section { min-height: 100vh; min-height: 100svh; margin-top: 0; }
       .two-col, .award-list { grid-template-columns: 1fr; }
       .current-role { grid-template-columns: 1fr; padding: 18px; }
       .moeve-logo { min-width: 120px; min-height: 60px; justify-self: start; }
@@ -501,6 +509,7 @@
       .scroll-context { right: 12px; bottom: 12px; max-width: calc(100vw - 24px); }
     }
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-snap-type: none; }
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
       .card:hover, .button-link:hover { transform: none; }
       .section.is-visible { animation: none; }
@@ -522,7 +531,7 @@
   </style>
 </head>
 <body>
-  <header class="hero">
+  <header class="hero" id="inicio">
     <div class="wrap">
       <div class="topline">
         <a class="brand" href="#inicio" aria-label="Ir al inicio">DIEGO VELÁZQUEZ-GAZTELU RUIZ</a>
@@ -536,7 +545,7 @@
         </nav>
       </div>
       <div class="hero-layout">
-        <div class="hero-content" id="inicio">
+        <div class="hero-content">
           <p class="eyebrow">Digital Business · Data Science</p>
           <h1>Diego Velázquez-Gaztelu Ruiz</h1>
           <p class="headline">Estudiante de doble grado en Digital Business con Data Science en ESIC University. Aprendo haciendo, disfruto trabajando en equipo y me interesa conectar negocio y tecnología.</p>
@@ -881,8 +890,34 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
     const scrollContextTotal = document.getElementById("scrollContextTotal");
     const scrollProgressFill = document.getElementById("scrollProgressFill");
     const sectionLinks = [...document.querySelectorAll('.topline nav a[href^="#"]')];
+    const heroSlide = document.getElementById("inicio");
     const contentSections = [...document.querySelectorAll("main > .section")];
-    if (scrollContextTotal) scrollContextTotal.textContent = String(contentSections.length).padStart(2, "0");
+    const presentationSlides = [heroSlide, ...contentSections].filter(Boolean);
+    if (scrollContextTotal) scrollContextTotal.textContent = String(presentationSlides.length).padStart(2, "0");
+    let snapRestoreTimer;
+    function restoreScrollSnap() {
+      clearTimeout(snapRestoreTimer);
+      document.documentElement.style.removeProperty("scroll-snap-type");
+      window.removeEventListener("scrollend", restoreScrollSnap);
+    }
+
+    sectionLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const target = document.getElementById(link.hash.slice(1));
+        if (!target) return;
+        event.preventDefault();
+        restoreScrollSnap();
+        document.documentElement.style.scrollSnapType = "none";
+        history.pushState(null, "", link.hash);
+        target.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+          block: "start"
+        });
+        window.addEventListener("scrollend", restoreScrollSnap, { once: true });
+        snapRestoreTimer = window.setTimeout(restoreScrollSnap, 1800);
+      });
+    });
+
     const cursorArtwork = {
       videos: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="7" width="24" height="21" rx="4" fill="#eaf3f8" stroke="#12324b" stroke-width="2"/><path d="M5 8h22l2-4H7z" fill="#f2c46f" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/><path d="m11 10 3-5m5 5 3-5" stroke="#12324b" stroke-width="2" stroke-linecap="round"/><path d="m14 14 7 4-7 4z" fill="#d7962e" stroke="#12324b" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
       perfil: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g class="cursor-person"><circle cx="16" cy="10" r="5" fill="#f2c46f" stroke="#12324b" stroke-width="2"/><path d="M5 28c.8-6 4.7-9 11-9s10.2 3 11 9z" fill="#eaf3f8" stroke="#12324b" stroke-width="2" stroke-linejoin="round"/></g></svg>`,
@@ -977,18 +1012,20 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
         const visibleSection = entries.find((entry) => entry.isIntersecting)?.target;
         if (!visibleSection) return;
         entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("is-visible");
+          if (entry.isIntersecting && entry.target.classList.contains("section")) {
+            entry.target.classList.add("is-visible");
+          }
         });
-        setSectionCursor(visibleSection.id);
+        setSectionCursor(visibleSection.id === "inicio" ? "videos" : visibleSection.id);
 
-        const sectionIndex = contentSections.indexOf(visibleSection);
+        const sectionIndex = presentationSlides.indexOf(visibleSection);
         if (scrollContextIndex) scrollContextIndex.textContent = String(sectionIndex + 1).padStart(2, "0");
-        if (scrollProgressFill) scrollProgressFill.style.width = `${((sectionIndex + 1) / contentSections.length) * 100}%`;
+        if (scrollProgressFill) scrollProgressFill.style.width = `${((sectionIndex + 1) / presentationSlides.length) * 100}%`;
         const sectionIcon = visibleSection.querySelector(".section-icon");
-        const sectionTitle = visibleSection.querySelector("h2");
-        scrollContextIcon.textContent = sectionIcon?.textContent || "";
+        const sectionTitle = visibleSection.querySelector("h2, h1");
+        scrollContextIcon.textContent = sectionIcon?.textContent || (visibleSection.id === "inicio" ? "🎬" : "");
         scrollContextLabel.textContent = sectionTitle?.textContent || "";
-        scrollContext.hidden = visibleSection.id === "videos" || visibleSection.id === "assistant";
+        scrollContext.hidden = ["inicio", "videos", "assistant"].includes(visibleSection.id);
 
         sectionLinks.forEach((link) => {
           if (link.hash === `#${visibleSection.id}`) {
@@ -999,6 +1036,7 @@ Actualmente trabajando en MOEVE Trading, S.A.U., en prácticas de desarrollo de 
         });
       }, { rootMargin: "-20% 0px -65% 0px" });
 
+      if (heroSlide) sectionObserver.observe(heroSlide);
       contentSections.forEach((section) => sectionObserver.observe(section));
     }
 
